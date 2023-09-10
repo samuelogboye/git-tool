@@ -30,7 +30,7 @@ Request Package
 pip install requests
 ```
 
-git-user23 Package
+git-user23 Package https://pypi.org/project/git-user23/
 
 ```bash
 pip install git_user23
