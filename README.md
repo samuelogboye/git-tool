@@ -88,7 +88,7 @@ Username saved in config file at /root/config.ini
 Enter your GitHub token:
 Confirm your GitHub token:
 Token confirmed
-GitHub token added to ~/.bashrc.
+GitHub token added to ***.
 Keep your token safe!
 --------------------------
 
@@ -99,5 +99,5 @@ Keep your token safe!
 You can now use the 'gittool' command to work on your GitHub repository.
 
 'gittool' Always
-Thank you for using the GitHub Tool v0.0.1 - By Samuel Ogboye
+Thank you for using the git-tool v0.0.1 - By Samuel Ogboye
 ```

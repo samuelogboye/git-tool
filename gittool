@@ -252,6 +252,6 @@ while True:
 
 print("--------------------------")
 print("'gittool' Always")
-print("Thank you for using the GitHub Tool v0.0.1 - By Samuel Ogboye")
+print("Thank you for using the git-tool v0.0.1 - By Samuel Ogboye")
 print("--------------------------")
 raise SystemExit
