@@ -35,3 +35,21 @@ git-user23 Package https://pypi.org/project/git-user23/
 ```bash
 pip install git_user23
 ```
+
+Clone this repository to your local machine:
+
+```bash
+git clone https://github.com/samuelogboye/git-tool.git
+```
+
+Navigate to the project directory:
+
+```bash
+cd git-tool
+```
+
+Run Make
+
+```bash
+make
+```
