@@ -26,11 +26,12 @@ Python >3.0
 
 Request Package
 
-````bash
-pip install requests```
+```bash
+pip install requests
+```
 
 git-user23 Package
-```bash
-pip install git_user23```
 
-````
+```bash
+pip install git_user23
+```
