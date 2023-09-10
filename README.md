@@ -101,3 +101,76 @@ You can now use the 'gittool' command to work on your GitHub repository.
 'gittool' Always
 Thank you for using the git-tool v0.0.1 - By Samuel Ogboye
 ```
+
+You can close the browser or close your session or run the refresh command
+
+```bash
+source ~/.bashrc
+```
+
+You are now ready to use gittool
+
+You can run 'gittool' in any directory of your choice
+
+```bash
+root@e142617b2a78:~/pract/git-tool# gittool
+Welcome to the GitHub Tool by Samuel Ogboye
+1. Clone a Repository
+2. Create a Repository
+3. Remove a Token
+4. Exit
+--------------------------
+Select what you want to do:
+```
+
+If you get
+
+```bash
+Token is not set. You wanna set now? (y/n):
+```
+
+Dont worry, your token that is in the environment is not yet synchornized.
+Just refresh as said earlier
+
+### Usage
+
+The git-tool provides the following options:
+
+## Clone a Repository
+
+Allows you to clone your GitHub repository to your local machine in 3 steps.
+
+- run gittool
+- choose 1 to clone and youll see the list of all your public repos
+- choose 1 and it clones immediately
+
+## Create a Repository
+
+Enables you to create a new public GitHub repository in 3 steps
+
+- run gittool
+- choose 2 to create
+- type the name then hit enter
+
+## Remove a Token
+
+Allows you to remove your GitHub access token from your environment variables.
+
+## Exit
+
+Exits the GitHub Tool.
+
+### Prerequisites
+
+Before using the GitHub Tool, ensure you have the following:
+
+    - Python 3.x installed on your system.
+    - Request module installed
+    - git-user23 module installed
+
+### Contributing
+
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please create an issue or submit a pull request.
+License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
