@@ -36,7 +36,7 @@ git-user23 Package https://pypi.org/project/git-user23/
 pip install git_user23
 ```
 
-Clone this repository to your local machine:
+Clone this repository to your local machine by running:
 
 ```bash
 git clone https://github.com/samuelogboye/git-tool.git
@@ -110,7 +110,7 @@ source ~/.bashrc
 
 You are now ready to use gittool
 
-You can run 'gittool' in any directory of your choice
+You can now run 'gittool' from any directory of your choice
 
 ```bash
 root@e142617b2a78:~/pract/git-tool# gittool
@@ -146,7 +146,7 @@ Allows you to clone your GitHub repository to your local machine in 3 steps.
 
 ## Create a Repository
 
-Enables you to create a new public GitHub repository in 3 steps
+Enables you to create a new public GitHub repository in just 3 steps
 
 - run gittool
 - choose 2 to create
@@ -170,7 +170,12 @@ Before using the GitHub Tool, ensure you have the following:
 
 ### Contributing
 
-Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please create an issue or submit a pull request.
-License
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please create an issue, or submit a pull request.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+### License
+
+This project is licensed under the MIT License. For detailed information, please refer to the LICENSE file
+
+### Author
+
+Samuel Ogboye ogboyesam@gmail.com
