@@ -77,3 +77,27 @@ Your token will not be used to access any other file.
 --------------------------
 Enter your GitHub username:
 ```
+
+Follow the prompt
+
+```bash
+Username confirmed
+GitHub Full Name: Samuel Ogboye
+Username saved in config file at /root/config.ini
+--------------------------
+Enter your GitHub token:
+Confirm your GitHub token:
+Token confirmed
+GitHub token added to ~/.bashrc.
+Keep your token safe!
+--------------------------
+
+'gittool' file will be moved to /bin so it become executable
+'gittool' has been made executable and moved to '/bin'.
+--------------------------
+
+You can now use the 'gittool' command to work on your GitHub repository.
+
+'gittool' Always
+Thank you for using the GitHub Tool v0.0.1 - By Samuel Ogboye
+```
