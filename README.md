@@ -15,3 +15,22 @@ Welcome to the GitHub Tool, a command-line utility for simplifying interactions 
     - Prerequisites
     - Contributing
     - License
+
+# Getting Started
+
+# Installations
+
+## Dependencies
+
+Python >3.0
+
+Request Package
+
+````bash
+pip install requests```
+
+git-user23 Package
+```bash
+pip install git_user23```
+
+````
