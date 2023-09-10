@@ -1,0 +1,257 @@
+#!/usr/bin/env python3
+
+import git_user23 as git
+import os
+import subprocess
+import configparser
+import getpass
+
+
+def addtoken():
+    """To add token to environment variable"""
+    while True:
+        # Prompt the user for their GitHub token
+        github_token_ok = getpass.getpass("Enter your GitHub token: ").strip().split()[0]
+
+        # Prompt the user to confirm the token
+        confirm_token = getpass.getpass("Confirm your GitHub token: ").strip().split()[0]
+
+        # retrive username
+        username = retrieveusername()
+
+        if github_token_ok == confirm_token:
+            if git.confirm_token(username, github_token_ok):
+                print("Token confirmed")
+                break
+            else:
+                print("Token not confirmed")
+        else:
+            print("Tokens do not match. Please try again.")
+
+    # Define the path to the ~/.bashrc file
+    bashrc_path = os.path.expanduser("~/.bashrc")
+
+    # Check if the line is already present in ~/.bashrc to avoid duplicates
+    with open(bashrc_path, "r") as bashrc_file:
+        lines = bashrc_file.readlines()
+        token_line_exists = any("export GITHUB_TOKEN=" in line for line in lines)
+
+    # Add the line to ~/.bashrc if it doesn't already exist
+    if not token_line_exists:
+        with open(bashrc_path, "a") as bashrc_file:
+            bashrc_file.write(f'export GITHUB_TOKEN="{github_token_ok}"\n')
+            print("GitHub token added to ~/.bashrc.")
+    else:
+        print("TOKEN already exists in ~/.bashrc.")
+
+
+def removetoken():
+    """To remove token from environment variable"""
+    # Define the path to the ~/.bashrc file
+    bashrc_path = os.path.expanduser("~/.bashrc")
+
+    # Read the contents of ~/.bashrc
+    with open(bashrc_path, "r") as bashrc_file:
+        lines = bashrc_file.readlines()
+
+    # Check if the line "export GITHUB_TOKEN" exists and remove it if found
+    updated_lines = []
+    found_github_token = False
+
+    for line in lines:
+        if not line.startswith("export GITHUB_TOKEN"):
+            updated_lines.append(line)
+        else:
+            found_github_token = True
+
+    # Write the updated lines back to ~/.bashrc if "export GITHUB_TOKEN" was found
+    if found_github_token:
+        with open(bashrc_path, "w") as bashrc_file:
+            bashrc_file.writelines(updated_lines)
+
+    if found_github_token:
+        print("TOKEN removed from ~/.bashrc.")
+        print("Changes applied on a new shell session.")
+    else:
+        print("TOKEN not found in ~/.bashrc.")
+
+
+# to retrieve token as environment variable
+def retrivetoken():
+    """To retrieve token as environment variable"""
+    github_token = os.environ.get("GITHUB_TOKEN")
+
+    if github_token is None:
+        while True:
+            choice = input("Token is not set. You wanna set now? (y/n): ").lower()
+            if choice == "y" or choice == "yes":
+                addtoken()
+                break
+            elif choice == "n" or choice == "no":
+                raise SystemExit
+            else:
+                print("Type 'y' or 'yes' to set token.")
+    else:
+        return github_token
+
+
+def addusername():
+    while True:
+        # Prompt the user for their GitHub username
+        username = input("Enter your GitHub username: ").strip().split()[0]
+
+        # Prompt the user to confirm the token
+        confirm_username = input("Confirm your GitHub username: ").strip().split()[0]
+
+        if username == confirm_username:
+            if git.confirm_username(username):
+                return username
+            else:
+                print("Username not valid. Please try again.")
+        else:
+            print("Username do not match. Please try again.")
+
+
+def retrieveusername():
+    """To retrieve username from config file"""
+    # to retrieve username from config file
+    # Determine the user's home directory
+    home_directory = os.path.expanduser("~")
+    config_file_path = os.path.join(home_directory, "config.ini")
+
+    # Check if the configuration file exists
+    if os.path.exists(config_file_path):
+        # Read the configuration from the file
+        config = configparser.ConfigParser()
+        config.read(config_file_path)
+
+        if "GitHub" in config:
+            github_username = config["GitHub"].get("Username", "")
+
+            if github_username:
+                return github_username
+    while True:
+        choice = input("Username is not set. You wanna set now? (y/n): ").lower()
+        if choice == "y" or choice == "yes":
+            addusername()
+            break
+        elif choice == "n" or choice == "no":
+            return None
+        else:
+            print("Type 'y' or 'yes' to set token.")
+    return None
+
+
+def createrepo():
+    """To create a repository"""
+    github_token = retrivetoken()
+    if github_token is None:
+        choice = input("Token is not set. You wanna set now? (y/n): ")
+        if choice == "y":
+            addtoken()
+        raise SystemExit
+    username = retrieveusername()
+    if username is None:
+        choice = input("Username is not set. You wanna set now? (y/n): ")
+        if choice == "y":
+            addtoken()
+        raise SystemExit
+    username = retrieveusername()
+    repo_name = input("Enter the name of the repository you want to create: ")
+    print("Creating repository...")
+    repo = git.create_repo(username, github_token, repo_name)
+    print(f"Repository created successfully: {repo}")
+
+
+def list_repositories(username):
+    """List the user's GitHub repositories."""
+    repos = git.repos(username)
+    if repos:
+        print("These are your repositories")
+        for i, repo in enumerate(repos, start=1):
+            print(f"{i}. {repo}")
+        return repos
+    else:
+        print("No repositories found.")
+        return []
+
+
+def select_repository(repos):
+    """Prompt the user to select a repository by its index."""
+    while True:
+        try:
+            selection = int(
+                input("Enter the index of the repository you want to clone: ")
+            )
+            if 1 <= selection <= len(repos):
+                return repos[selection - 1]
+            else:
+                print("Invalid selection. Please enter a valid index.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+
+def clone_repository(username, github_token, selected_repo):
+    """Clone the selected GitHub repository."""
+    clone_command = (
+        f"git clone https://{github_token}@github.com/{username}/{selected_repo}.git"
+    )
+    try:
+        subprocess.check_call(clone_command, shell=True)
+        print(f"{selected_repo} cloned successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+
+
+def clone():
+    github_token = retrivetoken()
+    username = retrieveusername()
+    repos = list_repositories(username)
+    if repos:
+        selected_repo = select_repository(repos)
+        print(f"You selected repository: {selected_repo}")
+        print(f"Cloning: {selected_repo}")
+        print("--------------------------")
+        print("**************************")
+        print("--------------------------")
+        clone_repository(username, github_token, selected_repo)
+    print("Done.")
+
+
+print("Welcome to the GitHub Tool by Samuel Ogboye")
+print("1. Clone a Repository")
+print("2. Create a Repository")
+print("3. Remove a Token")
+print("4. Exit")
+print("--------------------------")
+while True:
+    try:
+        selection = int(input("Select what you want to do: "))
+
+        if 1 <= selection <= 4:
+            if selection == 1:
+                clone()
+                break
+            elif selection == 2:
+                createrepo()
+                break
+            elif selection == 3:
+                choice = input(
+                    "Are you sure you want to remove your token? (y/n): "
+                ).lower()
+                if choice == "y" or choice == "yes":
+                    removetoken()
+                    break
+            elif selection == 4:
+                print("Goodbye")
+                break
+        else:
+            print("Invalid selection. Please enter a valid index.")
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+
+print("--------------------------")
+print("'gittool' Always")
+print("Thank you for using the GitHub Tool v0.0.1 - By Samuel Ogboye")
+print("--------------------------")
+raise SystemExit
