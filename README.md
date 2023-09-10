@@ -53,3 +53,27 @@ Run Make
 ```bash
 make
 ```
+
+```bash
+samuel@samuel-HP-EliteBook-x360-1030-G3:~/Documents/practice/git_clone_script/git-tool$ make
+Welcome to the GitHub Tool v0.0.1 - By Samuel Ogboye
+This tool will help you clone a GitHub repository using your GitHub token.
+This is a secure way to clone a GitHub repository without exposing your GitHub token.
+You will be prompted to enter your GitHub username and token.
+Your token will be saved in a configuration file in your home directory.
+Your token will not be displayed on the screen.
+Your token will be used to clone the repository.
+Your token will be deleted after cloning the repository.
+Your token will not be saved anywhere else.
+Your token will not be shared with anyone.
+Your token will not be used for any other purpose.
+Your token will not be used to access any other repository.
+Your token will not be used to access any other resource.
+Your token will not be used to access any other service.
+Your token will not be used to access any other website.
+Your token will not be used to access any other application.
+Your token will not be used to access any other system.
+Your token will not be used to access any other file.
+--------------------------
+Enter your GitHub username:
+```
